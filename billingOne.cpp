@@ -158,7 +158,6 @@ void shopping::add()
 
     if (!data)
     {
-        // If the file doesn't exist, create and insert the record
         data.open("database.txt", ios::app | ios::out);
         data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
         data.close();
@@ -166,7 +165,6 @@ void shopping::add()
     }
     else
     {
-        // Check if the product code already exists
         data >> c >> n >> p >> d;
         while (!data.eof())
         {
@@ -174,19 +172,19 @@ void shopping::add()
             {
                 cout << "Product code already exists. Record not inserted.\n";
                 data.close();
-                return; // Exit the function if the product code exists
+                return; 
             }
             data >> c >> n >> p >> d;
         }
         data.close();
 
-        // If product code doesn't exist, insert the record
         data.open("database.txt", ios::app | ios::out);
         data << " " << pcode << " " << pname << " " << price << " " << dis << "\n";
         data.close();
         cout << "Record Inserted\n";
     }
 }
+
 
 void shopping::edit()
 {
@@ -218,12 +216,12 @@ void shopping::edit()
                 cout << "New Code: ";
                 cin >> c;
                 cout << "New Name: ";
-                cin >> pname;  // Update the variable with the new name
+                cin >> pname;  
                 cout << "New Price: ";
                 cin >> p;
                 cout << "New Discount: ";
                 cin >> d;
-                data1 << " " << c << " " << pname << " " << p << " " << d << "\n";  // Use the updated variable
+                data1 << " " << c << " " << pname << " " << p << " " << d << "\n"; 
                 cout << "Record Edited\n";
                 token++;
             }
@@ -317,7 +315,7 @@ void shopping::receipt()
     do
     {
     m:
-        list();  // Display the list of products inside the loop
+        list();  
 
         cout << "\nEnter Product Code: ";
         cin >> arrc[c];
@@ -357,13 +355,10 @@ void shopping::receipt()
 
                 cout << pcode << "\t\t" << pname << "\t\t" << arrq[i] << "\t\t" << price << "\t\t" << productDiscount << "\n";
             }
-
             data >> pcode >> pname >> price >> dis;
         }
-
         data.close();
     }
-
     cout << "\nTotal Amount: " << total << "\n";
 }
 
