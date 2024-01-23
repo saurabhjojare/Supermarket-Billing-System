@@ -29,7 +29,7 @@ m:
     string email;
     string password;
 
-    cout << "Supermarket Main Menu\n";
+    cout << "Supermarket\nMain Menu\n";
     cout << "1) Administrator \n";
     cout << "2) Buyer         \n";
     cout << "3) Exit          \n";
@@ -51,7 +51,7 @@ m:
         }
         else
         {
-            cout << "Invalid email/password";
+            cout << "\nInvalid email/password\n";
         }
         break;
 
@@ -74,13 +74,12 @@ void shopping::administrator()
 m:
     int choice;
     cout << "\nAdministrator Menu\n";
-    cout << "1) Add the product\n";
-    cout << "2) Modify the product\n";
-    cout << "3) Delete the product\n";
-    cout << "4) Back to the Menu\n";
-	cout << "5) Exit\n";
+    cout << "1) Add Product\n";
+    cout << "2) Modify Product\n";
+    cout << "3) Delete Product\n";
+    cout << "4) Main Menu\n";
 	
-    cout << "\nPlease Enter Your Choice: ";
+    cout << "\nEnter Your Choice: ";
     cin >> choice;
 
     switch (choice)
@@ -101,10 +100,6 @@ m:
         menu();
         break;
         
-    case 5:
-        exit(0);
-        break;
-
     default:
         cout << "Invalid Choice";
     }
@@ -118,7 +113,7 @@ m:
     int choice;
     cout << "\nBuyer Menu\n";
     cout << "1) Buy product\n";
-    cout << "2) Back to the Menu\n";
+    cout << "2) Main Menu\n";
     cout << "Enter your choice: ";
     cin >> choice;
 
@@ -148,15 +143,15 @@ void shopping::add()
     float d;
     string n;
 
-    cout << "\nAdd new product\n";
-    cout << "Enter the product code: ";
+    cout << "\nAdd Product\n";
+    cout << "Product Code: ";
     cin >> pcode;
 
-    cout << "Name of the product: ";
+    cout << "Product Name: ";
     cin >> pname;
-    cout << "Price of the product: ";
+    cout << "Product Price: ";
     cin >> price;
-    cout << "Discount on product: ";
+    cout << "Product Discount: ";
     cin >> dis;
 
     data.open("database.txt", ios::in);
@@ -193,7 +188,6 @@ void shopping::add()
     }
 }
 
-
 void shopping::edit()
 {
     fstream data, data1;
@@ -204,7 +198,7 @@ void shopping::edit()
     float d;
     string n;
 
-    cout << "\nModify the record\n";
+    cout << "\nModify Record\n";
     cout << "Product Code: ";
     cin >> pkey;
 
@@ -225,9 +219,9 @@ void shopping::edit()
                 cin >> c;
                 cout << "New Name: ";
                 cin >> pname;  // Update the variable with the new name
-                cout << "Price: ";
+                cout << "New Price: ";
                 cin >> p;
-                cout << "Discount: ";
+                cout << "New Discount: ";
                 cin >> d;
                 data1 << " " << c << " " << pname << " " << p << " " << d << "\n";  // Use the updated variable
                 cout << "Record Edited\n";
@@ -251,20 +245,19 @@ void shopping::edit()
     }
 }
 
-
 void shopping::rem()
 {
     fstream data, data1;
     int pkey;
     int token = 0;
-    cout << "\nDelete product\n";
-    cout << "Enter the product code: ";
+    cout << "\nDelete Product\n";
+    cout << "Product Code: ";
     cin >> pkey;
 
     data.open("database.txt", ios::in);
     if (!data)
     {
-        cout << "File doesn't exist\n";
+        cout << "File Doesn't Exist\n";
     }
     else
     {
@@ -274,7 +267,7 @@ void shopping::rem()
         {
             if (pcode == pkey)
             {
-                cout << "Product deleted successfully\n";
+                cout << "Product Deleted Successfully\n";
                 token++;
             }
             else
@@ -290,7 +283,7 @@ void shopping::rem()
 
         if (token == 0)
         {
-            cout << "Record not found\n";
+            cout << "Record Not Found\n";
         }
     }
 }
@@ -319,76 +312,63 @@ void shopping::receipt()
     float amount = 0;
     float total = 0;
 
-    cout << "\nReceipt\n";
-    data.open("database.txt", ios::in);
+    cout << "\nPlace the order\n";
 
-    if (!data)
+    do
     {
-        cout << "Empty Database\n";
-    }
-    else
-    {
-        data.close();
-        list();
+    m:
+        list();  // Display the list of products inside the loop
 
-        cout << "\nPlace the order\n";
-
-        do
-        {
-        m:
-            cout << "\nEnter Product Code: ";
-            cin >> arrc[c];
-            cout << "Enter the quantity: ";
-            cin >> arrq[c];
-
-            for (int i = 0; i < c; i++)
-            {
-                if (arrc[c] == arrc[i])
-                {
-                    cout << "\nDuplicate product code.\n";
-                    goto m;
-                }
-            }
-
-            c++;
-            cout << "\nDo you want to buy another product or not?\nIf yes then press y else n: ";
-            cin >> choice;
-
-        } while (choice == 'y');
-
-        cout << "\nReceipt\n";
-        cout << "Product No\tProduct Name\tQuantity\tPrice\t\tDiscount\n";
+        cout << "\nEnter Product Code: ";
+        cin >> arrc[c];
+        cout << "Quantity: ";
+        cin >> arrq[c];
 
         for (int i = 0; i < c; i++)
         {
-            data.open("database.txt", ios::in);
-            data >> pcode >> pname >> price >> dis;
-
-            while (!data.eof())
+            if (arrc[c] == arrc[i])
             {
-                if (pcode == arrc[i])
-                {
-                    amount = price * arrq[i];
-                    float productDiscount = amount * dis / 100; // Calculate discount for each product
-                    total += (amount - productDiscount);
+                cout << "\nDuplicate Product Code.\n";
+                goto m;
+            }
+        }
 
-                    cout << pcode << "\t\t" << pname << "\t\t" << arrq[i] << "\t\t" << price << "\t\t" << productDiscount << "\n";
-                }
+        c++;
+        cout << "\nDo You Want To Buy Another Product?\ny or n: ";
+        cin >> choice;
 
-                data >> pcode >> pname >> price >> dis;
+    } while (choice == 'y');
+
+    cout << "\nReceipt\n";
+    cout << "Product No\tProduct Name\tQuantity\tPrice\t\tDiscount\n";
+
+    for (int i = 0; i < c; i++)
+    {
+        data.open("database.txt", ios::in);
+        data >> pcode >> pname >> price >> dis;
+
+        while (!data.eof())
+        {
+            if (pcode == arrc[i])
+            {
+                amount = price * arrq[i];
+                float productDiscount = amount * dis / 100;
+                total += (amount - productDiscount);
+
+                cout << pcode << "\t\t" << pname << "\t\t" << arrq[i] << "\t\t" << price << "\t\t" << productDiscount << "\n";
             }
 
-            data.close();
+            data >> pcode >> pname >> price >> dis;
         }
+
+        data.close();
     }
 
     cout << "\nTotal Amount: " << total << "\n";
 }
-
 
 int main()
 {
     shopping s;
     s.menu();
 }
-
