@@ -330,7 +330,6 @@ void shopping::receipt()
                 goto m;
             }
         }
-
         c++;
         cout << "\nDo You Want To Buy Another Product?\ny or n: ";
         cin >> choice;
