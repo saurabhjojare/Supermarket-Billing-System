@@ -185,7 +185,6 @@ void shopping::add()
     }
 }
 
-
 void shopping::edit()
 {
     fstream data, data1;
