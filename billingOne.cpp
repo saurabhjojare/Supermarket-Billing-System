@@ -29,7 +29,7 @@ m:
     string email;
     string password;
 
-    cout << "Supermarket\nMain Menu\n";
+    cout << "\nSupermarket Main Menu\n";
     cout << "1) Administrator \n";
     cout << "2) Buyer         \n";
     cout << "3) Exit          \n";
