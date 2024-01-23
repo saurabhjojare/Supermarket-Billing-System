@@ -45,7 +45,7 @@ m:
         cout << "Password: ";
         cin >> password;
 
-        if (email == "saurabh@gmail.com" && password == "saurabh@123")
+        if (email == "dan@gmail.com" && password == "dan@123")
         {
             administrator();
         }
